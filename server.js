@@ -20,8 +20,8 @@ app.get("/", function(req, res) {
 
 // your first API endpoint...
 app.get("/api/timestamp/:date_string?", function(req, res) {
-  const date_string = req.params.date_string;
-  const newDate = date_string ? new Date(date_string) : new Date();
+  const date = isNaN(+req.params.date_string) ? req.params.date_string : +req.params.date_string;
+  const newDate = date ? new Date(date) : new Date();
   if (newDate instanceof Date && !isNaN(newDate)) {
     res.json({ unix: newDate.getTime(), utc: newDate.toUTCString() });
   } else {
